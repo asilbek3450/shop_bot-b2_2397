@@ -5,6 +5,7 @@ from states import RegisterStates
 from keyboards import phone_keyboard
 from config import ADMINS
 from aiogram import Dispatcher
+from database import add_user, search_user_by_id
 
 async def start_registration(message: Message, state: FSMContext):
     await message.answer("👤 Iltimos, ismingizni kiriting:")
@@ -24,8 +25,12 @@ async def get_phone(message: Message, state: FSMContext):
     # 👇 Shu yerda siz bazaga yozishingiz mumkin (masalan SQLAlchemy yoki SQLite)
     # save_user(user_id=user_id, name=ism, phone=phone)
     user_text = f"🆕 Yangi foydalanuvchi:\n\n👤 ID: {user_id}\n😀 Ism: {ism}\n📞 Telefon: {phone}"
-
-    await message.answer(f"✅ Ro‘yxatdan o‘tdingiz!\nIsm: {ism}\nTelefon: {phone}", reply_markup=None)
+    if search_user_by_id(user_id):
+        await message.answer("Siz allaqachon ro'yxatdan o'tgansiz!", reply_markup=None)
+        return
+    else:
+        add_user(ism=ism, telefon=phone, user_id=user_id)  # bazaga yozish
+    await message.answer(f"✅ Ro'yxatdan o'tdingiz!\nIsm: {ism}\nTelefon: {phone}", reply_markup=None)
     for admin_id in ADMINS:
         await message.bot.send_message(admin_id, user_text)
     await message.answer("Ro'yxatdan o'tish tugallandi. Endi siz botdan foydalanishingiz mumkin!", reply_markup=None)

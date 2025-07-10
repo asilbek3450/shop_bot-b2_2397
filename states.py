@@ -4,3 +4,17 @@ class RegisterStates(StatesGroup):
     ism = State()
     telefon = State()
 
+class CategoryStates(StatesGroup):
+    category_name = State()
+    tasdiqlash = State()
+    
+
+class ProductStates(StatesGroup):
+    product_name = State()
+    product_price = State()
+    product_image = State()
+    product_description = State()
+    product_category = State()
+    tasdiqlash = State()
+    
+    

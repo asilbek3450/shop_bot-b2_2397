@@ -34,3 +34,11 @@ register_keyboard = ReplyKeyboardMarkup(
     resize_keyboard=True,
     one_time_keyboard=True
 )
+
+tasdiqlash_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="✅ Tasdiqlash"), KeyboardButton(text="❌ Bekor qilish")]
+    ],
+    resize_keyboard=True,
+    one_time_keyboard=True
+)
