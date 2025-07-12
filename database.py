@@ -48,3 +48,45 @@ def add_category_to_db(nomi):
     except sqlite3.IntegrityError:
         return False  # Agar kategoriya allaqachon mavjud bo'lsa, xatolik qaytaradi
     return True  # Kategoriya muvaffaqiyatli qo'shildi
+
+
+def get_all_categories():
+    komanda = "SELECT * FROM categories"
+    cur.execute(komanda)
+    return cur.fetchall()  # Barcha kategoriyalarni qaytaradi
+
+
+def get_category_id_by_name(nomi):
+    komanda = "SELECT id FROM categories WHERE nomi = ?"
+    cur.execute(komanda, (nomi,))
+    result = cur.fetchone()
+    return result[0] if result else None  # Agar kategoriya topilsa, ID ni qaytaradi, aks holda None qaytaradi
+
+
+def add_product_to_db(nomi, narxi, rasmi, malumot, category_id):
+    komanda = """INSERT INTO products (nomi, narxi, rasmi, malumot, category_id) 
+                 VALUES (?, ?, ?, ?, ?)"""
+    try:
+        cur.execute(komanda, (nomi, narxi, rasmi, malumot, category_id))
+        conn.commit()
+    except sqlite3.IntegrityError:
+        return False
+    
+    
+def get_all_products(category_id):
+    komanda = "SELECT * FROM products WHERE category_id = ?"
+    cur.execute(komanda, (category_id,))
+    return cur.fetchall()  # Berilgan kategoriya ID bo'yicha barcha mahsulotlarni qaytaradi
+
+
+def get_product_id_by_name(nomi):
+    komanda = "SELECT id FROM products WHERE nomi = ?"
+    cur.execute(komanda, (nomi,))
+    result = cur.fetchone()
+    return result[0] if result else None  # Agar mahsulot topilsa, ID ni qaytaradi, aks holda None qaytaradi
+
+
+def get_product_by_id(product_id):
+    komanda = "SELECT * FROM products WHERE id = ?"
+    cur.execute(komanda, (product_id,))
+    return cur.fetchone()  # Berilgan mahsulot ID bo'yicha mahsulot ma'lumotlarini qaytaradi

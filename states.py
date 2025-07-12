@@ -18,3 +18,8 @@ class ProductStates(StatesGroup):
     tasdiqlash = State()
     
     
+class MenuStates(StatesGroup):
+    category_selection = State()
+    product_selection = State()
+    
+    

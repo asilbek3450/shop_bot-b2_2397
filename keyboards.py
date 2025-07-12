@@ -1,5 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-
+from database import get_all_categories, get_all_products
 # 👑 Admin uchun keyboard
 admin_keyboard = ReplyKeyboardMarkup(
     keyboard=[
@@ -42,3 +42,23 @@ tasdiqlash_keyboard = ReplyKeyboardMarkup(
     resize_keyboard=True,
     one_time_keyboard=True
 )
+
+
+def get_category_keyboard():
+    categories = get_all_categories()
+    buttons = [KeyboardButton(text=category[1]) for category in categories]
+    keyboards = ReplyKeyboardMarkup(
+        keyboard=[buttons[i:i + 2] for i in range(0, len(buttons), 2)],
+        resize_keyboard=True
+    )
+    return keyboards
+
+
+def get_product_keyboard(category_id):
+    products = get_all_products(category_id)
+    buttons = [KeyboardButton(text=product[1]) for product in products]
+    keyboards = ReplyKeyboardMarkup(
+        keyboard=[buttons[i:i + 2] for i in range(0, len(buttons), 2)],
+        resize_keyboard=True
+    )
+    return keyboards

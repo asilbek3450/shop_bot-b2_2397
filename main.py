@@ -6,7 +6,8 @@ from aiogram.filters import Command
 from aiogram.fsm.storage.memory import MemoryStorage
 from config import BOT_TOKEN, ADMINS
 from handlers.register import register_start_handler
-from handlers.admin import register_category_handlers
+from handlers.admin import register_category_handlers, register_product_handlers
+from handlers.users import register_menu_handlers
 from database import create_tables, add_user, search_user_by_id
 
 bot = Bot(token=BOT_TOKEN)
@@ -29,7 +30,8 @@ async def start_handler(message: Message):
   
 register_start_handler(dp=dp)
 register_category_handlers(dp=dp)
-
+register_product_handlers(dp=dp)
+register_menu_handlers(dp=dp)
 
 async def main():
     create_tables()  # bazani yaratish
