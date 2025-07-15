@@ -1,4 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 from database import get_all_categories, get_all_products
 # 👑 Admin uchun keyboard
 admin_keyboard = ReplyKeyboardMarkup(
@@ -17,6 +17,13 @@ user_keyboard = ReplyKeyboardMarkup(
         [KeyboardButton(text="📍 Manzil")]
     ],
     resize_keyboard=True
+)
+user_zakaz_keyboard = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="💰 Sotib olish"), KeyboardButton(text="❌ Bekor qilish")],
+        [KeyboardButton(text="🔙 Orqaga")],
+    ],
+    resize_keyboard=True,
 )
 
 phone_keyboard = ReplyKeyboardMarkup(
@@ -62,3 +69,20 @@ def get_product_keyboard(category_id):
         resize_keyboard=True
     )
     return keyboards
+
+
+def in_product_keyboard(product_id):
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="-", callback_data=f"decrease_quantity_{product_id}"),
+                InlineKeyboardButton(text="🛒 Savatga qo'shish", callback_data=f"add_to_cart_{product_id}"),
+                InlineKeyboardButton(text="+", callback_data=f"increase_quantity_{product_id}")
+            ],
+            [
+                InlineKeyboardButton(text="🔙 Orqaga", callback_data="back_to_products")
+            ]
+        ], resize_keyboard=True
+    )
+    
+            

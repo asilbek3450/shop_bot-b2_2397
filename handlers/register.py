@@ -37,9 +37,6 @@ async def get_phone(message: Message, state: FSMContext):
     await state.clear()
 
 
-# @dp.message(F.text.lower() == "👤 Ro'yhatdan o'tish")
-# @dp.message(RegisterStates.ism)
-# @dp.message(RegisterStates.telefon, F.contact)
 def register_start_handler(dp: Dispatcher):
     dp.message.register(start_registration, F.text == "👤 Ro'yhatdan o'tish")
     dp.message.register(get_name, RegisterStates.ism)

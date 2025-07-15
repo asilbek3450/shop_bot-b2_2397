@@ -22,10 +22,19 @@ def create_tables():
         malumot TEXT NOT NULL,
         category_id INTEGER NOT NULL,
         FOREIGN KEY (category_id) REFERENCES categories(id))"""
+    
+    komanda4= """CREATE TABLE IF NOT EXISTS zakazlar (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        product_id INTEGER NOT NULL,
+        soni INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(user_id),
+        FOREIGN KEY (product_id) REFERENCES products(id))"""
         
     cur.execute(komanda1)
     cur.execute(komanda2)
     cur.execute(komanda3)
+    cur.execute(komanda4)
     conn.commit()
 
 
