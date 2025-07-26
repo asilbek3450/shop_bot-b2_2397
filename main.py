@@ -18,7 +18,7 @@ from keyboards import admin_keyboard, user_keyboard, register_keyboard
 
 @dp.message(Command("start"))
 async def start_handler(message: Message):
-    user_id = message.from_user.id
+    user_id = message.from_user.id # type: ignore
 
     if user_id in ADMINS:  # adminlar ID ro'yxati
         await message.answer("Assalomu alaykum, admin!", reply_markup=admin_keyboard)

@@ -99,3 +99,21 @@ def get_product_by_id(product_id):
     komanda = "SELECT * FROM products WHERE id = ?"
     cur.execute(komanda, (product_id,))
     return cur.fetchone()  # Berilgan mahsulot ID bo'yicha mahsulot ma'lumotlarini qaytaradi
+
+
+def add_zakaz(user_id, product_id, soni):
+    komanda = "INSERT INTO zakazlar (user_id, product_id, soni) VALUES (?, ?, ?)"
+    cur.execute(komanda, (user_id, product_id, soni))
+    conn.commit()  # Zakazni bazaga qo'shadi
+    
+def get_zakazlar_by_user_id(user_id):
+    komanda = "SELECT * FROM zakazlar WHERE user_id = ?"
+    cur.execute(komanda, (user_id,))
+    return cur.fetchall()  # Foydalanuvchi ID bo'yicha barcha zakazlarni qaytaradi
+
+
+def delete_zakaz_by_id(user_id):
+    komanda = "DELETE FROM zakazlar WHERE user_id = ?"
+    cur.execute(komanda, (user_id,))
+    conn.commit()  # Berilgan foydalanuvchi ID bo'yicha zakazni bazadan o'chiradi
+    

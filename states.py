@@ -23,3 +23,6 @@ class MenuStates(StatesGroup):
     product_selection = State()
     
     
+class ZakazStates(StatesGroup):
+    tasdiqlash = State()
+    
